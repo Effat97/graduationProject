@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, Text, View,AppRegistry, TouchableOpacity, Alert }
 import Header from "./components/header";
 // import moment from 'moment';
 
-const apiurl = "http://192.168.1.9:3000/api/AcceptedRequests";
+const apiurl = "http://192.168.1.9:3000/api/AcceptedRequests"; //USE YOUR CURRENT IP (LOCAL HOST)
 
 export default class App extends Component {
   state = {
@@ -19,19 +19,18 @@ export default class App extends Component {
   //----------------------------------------------------------------------------------------------------------------------
   //FETCHING DATA FROM API AND CONVERTING IT TO JSON
   fetchData = async () => {
-    const response = await fetch("http://192.168.1.9:3000/api/Mycollection");
+    const response = await fetch("http://192.168.1.9:3000/api/Mycollection"); //USE YOUR CURRENT IP (LOCAL HOST) http://(CURRENT IP):3000/api/Mycollection
     const json = await response.json();
     // console.log(json);
     this.setState({ data: json });
   };
 //------------------------------------------------------------------------------------------------------------------------
 //FUNCTION THAT SENDS ACCEPTED REQUEST TO API(LOGGING)
-//STILL IN THE MAKING
 
   acceptRequest= (params)=>{
     try{
       console.log(params);
-    // var data ={"hi" : "hellow"}
+    
     fetch(apiurl, {
    method: 'POST', 
    mode : 'no-cors',
@@ -46,7 +45,6 @@ export default class App extends Component {
       console.log(`Error is : ${error}`);
     }
   };
-    // request.post("http://192.168.1.34:3000/api/AcceptedRequests").send(data)
     
   
 //------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +75,6 @@ export default class App extends Component {
         <TouchableOpacity onPress={()=> this.pressHandler(item)}>
           <Text style = {styles.item}>
              room number : {` ${item.roomNumber}`} {"\n"}
-             {/* date: {`${Date(parseInt((item.timestamp).toString().substring(0,8), 16)*100)}`} */}
               time called :  {` ${(item.timestamp).toString().substring(11,19)}`}{"\n"}
              date : {` ${(item.timestamp).toString().substring(0,10)}`}
             </Text>
